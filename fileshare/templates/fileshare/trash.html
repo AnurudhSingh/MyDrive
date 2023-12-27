@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="content">
+    <h2 style="font-weight: normal; margin-top: 52px;">Trash</h2>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Deleted By</th>
+          <th>Deleted At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for folder in folders %}
+          <tr>
+            <td>Folder</td>
+            <td>
+              <a href="{% url 'upload_file' folder.id %}" style="text-decoration: none; color: #015391;">{{ folder.name }}</a>
+            </td>
+            <td>
+              {% if folder.deleted_by %}
+                {{ folder.deleted_by.username }}
+              {% else %}
+                N/A
+              {% endif %}
+            </td>
+            <td>
+              {% if folder.deleted_at %}
+                {{ folder.deleted_at }}
+              {% else %}
+                N/A
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'restore_folder' folder.id %}" style="color: #015391;"><i class="fas fa-trash-restore"></i></a>
+              <!-- Add "Delete Permanently" action -->
+              <a href="{% url 'delete_permanently_folder' folder.id %}" style="color: #FF0000;"><i class="fas fa-trash-alt"></i></a>
+            </td>
+          </tr>
+        {% endfor %}  
+
+        {% for file in files_in_folders %}
+          <tr>
+            <td>File</td>
+            <td>
+              <a href="{{ file.file.url }}" target="_blank" style="text-decoration: none; color: #015391;">{{ file.name }}</a>
+            </td>
+            <td>
+              {% if file.deleted_by %}
+                {{ file.deleted_by.username }}
+              {% else %}
+              N/A
+              {% endif %}
+            </td>
+            <td>
+              {% if file.deleted_at %}
+                {{ file.deleted_at }}
+              {% else %}
+                N/A
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'restore_file' file.id %}" style="text-decoration: none; color: #015391;"><i class="fas fa-trash-restore"></i></a>
+              <!-- Add "Delete Permanently" action -->
+              <a href="{% url 'delete_permanently_file' file.id %}" style="color: #FF0000;"><i class="fas fa-trash-alt"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+
+        <!-- Display root files in the trash -->
+        {% for root_file in root_files %}
+          <tr>
+            <td>File</td>
+            <td>
+              <a href="{{ root_file.file.url }}" target="_blank" style="text-decoration: none; color: #015391;">{{ root_file.name }}</a>
+            </td>
+            <td>
+              {% if root_file.deleted_by %}
+                {{ root_file.deleted_by.username }}
+              {% else %}
+                N/A
+              {% endif %}
+            </td>
+            <td>
+              {% if root_file.deleted_at %}
+                {{ root_file.deleted_at }}
+              {% else %}
+                N/A
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'restore_file' root_file.id %}" style="text-decoration: none; color: #015391;"><i class="fas fa-trash-restore"></i></a>
+              <!-- Add "Delete Permanently" action -->
+              <a href="{% url 'delete_permanently' root_file.id %}" style="color: #FF0000;"><i class="fas fa-trash-alt"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+        {% for shared_file in shared_files %}
+        <tr>
+          <td>File</td>
+          <td>
+            <a href="{{ shared_file.file.file.url }}" target="_blank" style="text-decoration: none; color: #015391;">{{ shared_file.file.name }}</a>
+          </td>
+          <td>
+            {% if shared_file.deleted_by %}
+              {{ shared_file.deleted_by.username }}
+            {% else %}
+              N/A
+            {% endif %}
+          </td>
+          <td>
+            {% if shared_file.deleted_at %}
+              {{ shared_file.deleted_at }}
+            {% else %}
+              N/A
+            {% endif %}
+          </td>
+          <td>
+            <span style="margin-right: 15px;"></span>
+            <a href="{% url 'restore_file' shared_file.id %}" style="text-decoration: none; color: #015391;"><i class="fas fa-trash-restore"></i></a>
+            <!-- Add "Delete Permanently" action -->
+            <span style="margin-right: 15px;"></span>
+            <a href="{% url 'delete_permanently' shared_file.id %}" style="color: #FF0000;"><i class="fas fa-trash-alt"></i></a>
+          </td>
+        </tr>
+        {% endfor %}
+            
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}

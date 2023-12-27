@@ -1,0 +1,17 @@
+<!-- fileshare/templates/fileshare/confirm_delete.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="content">
+    <h2 style="font-weight: normal; margin-top: 52px; margin-bottom: 5px;">Confirm Deletion</h2>
+    <p>Are you sure you want to delete the {{ type }} "{{ name }}"?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn-upload" style="height: 27px;">Yes, delete</button>
+      <a href="{% url 'dashboard' %}" style="text-decoration: none; color: #3134E1; margin-left:10px;">No, cancel</a>
+    </form>
+  </div>
+
+{% endblock %}

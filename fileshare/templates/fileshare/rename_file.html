@@ -1,0 +1,14 @@
+<!-- fileshare/templates/fileshare/rename_file.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="content">
+    <h2 style="font-weight: normal; margin-top: 52px;">Rename File</h2>
+    <form method="post" style="display: flex; flex-direction: row; align-items: center; margin-top: -15px;">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" style="margin-left: 5px; margin-top: 5.5px; margin-bottom: 3.5px; height: 20px;">Rename</button>
+    </form>
+  </div>
+{% endblock %}

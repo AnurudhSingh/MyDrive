@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MyDrive{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <style>
+        html, body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            margin-top: 21px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .topnav {
+            position: fixed;
+            font-family: 'Arial Sans', sans-serif;
+            font-size: 18.5px;
+            background-color: #0078D4;
+            color: #fff;
+            padding: 0px 0px;
+            justify-content: space-between;
+            overflow: hidden;
+            align-items: center;
+            width: 100%; /* Full width */
+            top: 0;
+            z-index: 1000;
+            display: flex;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: #fff;
+            text-align: center;
+            padding: 10px 30px;
+            text-decoration: none;
+            margin-right: 1px;
+            transition: color 0.3s;
+        }
+
+        .topnav a:hover {
+            background-color: #0078D4;
+            color: white;
+        }
+
+        .topnav h1 {
+            font-size: 22px;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            margin-top: 1px; /* Remove top margin */
+        }
+
+        .paper-plane {
+            font-size: 30px;
+            margin right: 10px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .search-bar input {
+            width: 45%;
+            padding: 8px;
+            border: none;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .search-button {
+            background-color: #0078D4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #005EAA;
+        }
+
+        .topnav-right {
+            float: right;
+            display: flex;
+            align-items: center;
+        }
+
+        .topnav-right a {
+            background-color: #F30813;
+            font-size: 17.5px; /* Adjust the font size for the links in the top right corner */
+            margin-right: 22.5px; /* Adjust the margin to create space between items */
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            padding: 5px 7px;
+            transition: color 0.3s;
+        }
+
+        .topnav-right a:hover {
+            background-color: #F30813;
+            color: white;
+            transform: scale(1.07);
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 10px;
+            align-items: stretch;
+            margin-top: -25px;
+            margin-left: 8.7%; /* Adjust for the fixed sidebar width */
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0; /* Remove top margin */
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #333;
+            margin: 0 0 20px; /* Add margin to the bottom */
+        }
+
+        table {
+            width: 98%;
+            margin: -35px 0px;;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center; /*initially left*/
+        }
+
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 15%; /* Increase the width of the "File Name" column */
+        }
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 15%; /* Increase the width of the "File Name" column */
+        }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 20%; /* Reduce the width of the "Actions" column */
+        }
+
+        th:nth-child(4),
+        td:nth-child(4) {
+            width: 20%; /* Reduce the width of the "Actions" column */
+        }
+
+        th {
+            background-color: #f5f5f5;
+            color: #000;
+            /*font-weight: normal;*/
+        }
+
+        tr:nth-child(even) {
+            background-color: #fff;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .action-icon {
+            font-size: 18px; /* Adjust the icon size */
+            margin: 0 5px; /* Add spacing between icons */
+            color: #0078D4; /* Change the icon color */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .action-icon:hover {
+            color: #005EAA; /* Change the hover color */
+        }
+
+        .logout-button {
+            margin-top: 20px;
+        }
+
+        .logout-button a {
+            background-color: #c43804;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            max-width: 100px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .logout-button a:hover {
+            background-color: #FF5733;
+        }
+
+        .btn-upload, .btn-create, .btn-share {
+            background-color: #0078D4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 0;
+            height: 35px;
+            width: 100px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-upload:hover,  .btn-create:hover, .btn-share:hover {
+            background-color: #005EAA;
+            transform: scale(1.05);
+        }
+
+        .leftnav {
+            width: 12%; /* Adjusted width */
+            background-color: #f9f9f9;
+            border-right: 0px solid #ccc; /*initially 1px*/
+            padding: 24px; /* Adjusted padding */
+            color: black;
+            font-size: 17px;
+            position: fixed; /* Fix the left sidebar */
+            height: 100vh; /* Full height */
+            top: 46px; /* Below the top navigation bar */
+        }
+
+        .leftnav a {
+            display: block;
+            color: #000;
+            text-decoration: none;
+            margin-bottom: 18px; /* Adjusted margin */
+            transition: color 0.3s;
+        }
+
+        .leftnav a:hover {
+            color: #005EAA;
+        }
+
+        .leftnav .user-section {
+            margin-top: -23px;
+            margin-bottom: -2px; /* Adjust the margin between username and top nav bar */
+        }
+
+        .leftnav h2 {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+            margin-bottom: 5px;
+            font-size: 20.5px; /* Adjust the font size as needed */
+        }
+
+        .leftnav .user-username {
+            font-weight: bold;
+            font-size: 18px;
+            color: #000;
+            margin-bottom: 10px; /* Add margin between username and buttons */
+        }
+
+        /* Add the style for the new button */
+        .leftnav .btn-upload {
+            background-color: #0078D4;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 18px;
+        }
+
+        .leftnav .btn-upload:hover {
+            background-color: #005EAA;
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0; /* Remove top margin */
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #333;
+            margin: 0 0 20px; /* Add margin to the bottom */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="topnav">
+        <div class="nav-item">
+            <h1><a href="{% url 'dashboard' %}">MyDrive <i class="fas fa-paper-plane paper-plane-icon"> </i></a></h1>
+        </div>
+        <div class="search-bar">
+            <form action="{% url 'search_files' %}" method="GET">
+                <input type="text" name="q" placeholder="Looking for something?">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+        </div>
+        <div class="topnav-right">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        
+    </div>
+
+    <div class="leftnav">
+        <div class="user-section">
+            <h2><p class="user-username" style="font-weight: normal;">{{ user.username|upper }}</p></h2>
+        </div>
+        <div class="nav-item" style="display: flex; flex-direction: row; gap: 5px;">
+            <button class="btn-create" onclick="location.href='{% url 'create_folder' %}'">New</button>
+            {% if folder.id %}
+                <button class="btn-upload" onclick="location.href='{% url 'upload_file' folder_id=folder.id %}'">Upload</button>
+            {% else %}
+            <button class="btn-upload" onclick="location.href='{% url 'upload_file' %}'">Upload</button>
+            {% endif %}
+        </div>
+        <div class="nav-item">
+            <a href="{% url 'dashboard' %}">My Files</a>
+        </div>
+        <div class="nav-item">
+            <a href="{% url 'shared_files' %}">Shared with Me</a>
+        </div>
+        <div class="nav-item">
+            <a href="{% url 'starred' %}">Starred</a>
+        </div>
+        <div class="nav-item">
+            <a href="{% url 'settings' %}">Settings</a>
+        </div>
+        <div class="nav-item">
+            <a href="{% url 'trash' %}">Trash</a>
+        </div>
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

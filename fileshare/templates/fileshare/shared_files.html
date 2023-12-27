@@ -1,0 +1,55 @@
+<!-- fileshare/templates/fileshare/shared_files.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="content">
+    <h2 style="font-weight: normal; margin-top: 52px;">Shared Files</h2>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Shared By</th>
+          <th>Shared At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in shared_file_info %}
+          {% with shared_file=entry.shared_file shared_time=entry.shared_time %}
+            <tr>
+              <td>File</td>
+              <td><a href="{{ shared_file.file.file.url }}" target="_blank" style="text-decoration: none; color: #015391;">{{ shared_file.file.name }}</a></td>
+              <td>{{ shared_file.shared_by.username }}</td>
+              <td>{{ shared_time|date:"F d, Y H:i:s" }}</td>
+              <td>
+                <a href="{% if shared_file.file.id %}{% url 'share' item_type='file' item_id=shared_file.file.id %}{% endif %}">
+                  <i class="fas fa-share-alt" style="color: #0a4470;"></i>
+                </a>
+                <span style="margin-right: 15px;"></span>
+                <a href="{% if shared_file.file.id %}{% url 'rename_file' file_id=shared_file.file.id %}{% endif %}">
+                  <i class="fas fa-edit" style="color: #0a4470;"></i>
+                </a>
+                <span style="margin-right: 15px;"></span>
+                <a href="{% if shared_file.file.id %}{% url 'delete_file' file_id=shared_file.file.id %}{% endif %}">
+                  <i class="fas fa-trash-alt" style="color: #0a4470;"></i>
+                </a>
+                <span style="margin-right: 15px;"></span>
+                <a href="{{ shared_file.file.url }}" download><i class="fas fa-download" style="color: #0a4470;"></i></a>
+                <span style="margin-right: 15px;"></span>
+                <a href="{% if shared_file.file.id %}{% url 'toggle_star' file_id=shared_file.file.id %}{% endif %}">
+                  {% if shared_file.file.starred %}
+                      <i class="fas fa-star" style="color: #0a4470;"></i>  <!-- Starred -->
+                  {% else %}
+                      <i class="far fa-star" style="color: #0a4470;"></i>  <!-- Not Starred -->
+                  {% endif %}
+                </a>
+              </td>
+            </tr>
+          {% endwith %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

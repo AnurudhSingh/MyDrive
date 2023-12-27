@@ -1,0 +1,17 @@
+<!-- fileshare/templates/fileshare/share.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="content">
+    <h2 style="font-weight: normal; margin-top: 52px;">Share {{ item_type }}</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label for="usernames" style="font-size: 17px;">Enter usernames (comma-separated):</label>
+      <input type="text" name="usernames" required style="width: 32.5%; padding: 7.5px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px;">
+      <button type="submit" class="btn-share" style="padding: 5px 10px; font-size: 14px;">Share</button>
+    </form>
+  </div>
+
+{% endblock %}

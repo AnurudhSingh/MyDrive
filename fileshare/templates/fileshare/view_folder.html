@@ -1,0 +1,49 @@
+<!-- fileshare/templates/fileshare/view_folder.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+
+  <div class="content">
+    <h2 style="font-weight: normal; margin-top: 52px;">Files in {{ folder.name }}</h2>
+    <br>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Uploaded By</th>
+          <th>Uploaded At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in files %}
+          <tr>
+            <td>File</td>
+            <td><a href="{{ file.file.url }}" target="_blank" style="text-decoration: none; color: #015391;">{{ file.name }}</a></td>
+            <td>{{ file.uploaded_by.username }}</td>
+            <td>{{ file.uploaded_at }}</td>
+            <td>
+              <!-- Add actions as needed -->
+              <a href="{% url 'share' 'file' file.id %}"><i class="fas fa-share-alt" style="color: #0a4470;"></i></a>
+              <span style="margin-right: 15px;"></span>
+              <a href="{% url 'rename_file' file.id %}"><i class="fas fa-edit" style="color: #0a4470;"></i></a>
+              <span style="margin-right: 15px;"></span>
+              <a href="{% url 'delete_file' file.id %}"><i class="fas fa-trash-alt" style="color: #0a4470;"></i></a>
+              <span style="margin-right: 15px;"></span>
+              <a href="{{ file.file.url }}" download><i class="fas fa-download" style="color: #0a4470;"></i></a>
+              <span style="margin-right: 15px;"></span>
+              <a href="{% url 'toggle_star' file.id %}">
+                {% if file.starred %}
+                    <i class="fas fa-star" style="color: #0a4470;"></i>  <!-- Starred -->
+                {% else %}
+                    <i class="far fa-star" style="color: #0a4470;"></i>  <!-- Not Starred -->
+                {% endif %}
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

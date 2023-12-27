@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="content">
+    <h2 style="font-weight: normal; margin-top: 52px; margin-bottom: 20px;">Settings</h2>
+
+    <form method="post" class="settings-form">
+      {% csrf_token %}
+
+      <!-- First Name -->
+      <div class="form-group">
+        <label for="id_first_name">First Name:</label>
+        <input type="text" name="first_name" id="id_first_name" value="{{ user.first_name }}" required>
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+        <label for="id_last_name">Last Name:</label>
+        <input type="text" name="last_name" id="id_last_name" value="{{ user.last_name }}" required>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="id_email">Email:</label>
+        <input type="email" name="email" id="id_email" value="{{ user.email }}" required>
+      </div>
+
+      <!-- Username -->
+      <div class="form-group">
+        <label for="id_username">Username:</label>
+        <input type="text" name="username" id="id_username" value="{{ user.username }}" required>
+      </div>
+
+      <!-- Password Change -->
+      <div class="form-group">
+        <p>If you want to change your password,
+          <a href="{% url 'password_change' %}" style="text-decoration: none; color: #008080;">click here</a>.</p>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-group" style="text-align: left; margin-top: 20px;">
+        <button class="btn-upload" type="submit">Save Changes</button>
+      </div>
+    </form>
+  </div>
+
+  <style>
+    .form-group {
+      margin-bottom: 20px;  /* Increased margin for better separation */
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;  /* Adjusted label margin for better alignment */
+    }
+
+    .form-group input {
+      width: 35%;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+
+    .form-group p {
+      margin-top: 10px;  /* Added margin to separate the password change link from the input fields */
+    }
+  </style>
+{% endblock %}
