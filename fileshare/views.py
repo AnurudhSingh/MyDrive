@@ -13,7 +13,8 @@ from django.db.models import QuerySet, Q
 from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
-
+from django.core.exceptions import ObjectDoesNotExist
+from itertools import chain
 
 def register(request):
     if request.user.is_authenticated:
@@ -387,12 +388,34 @@ def untoggle_star(request, file_id):
 
     return redirect('dashboard')
 
+@login_required
 def search_files(request):
     query = request.GET.get('q', '')
-    
-    # Perform search logic here, you might want to search in both folders and files
-    folders = Folder.objects.filter(name__icontains=query)
-    files = File.objects.filter(name__icontains=query)
-    
-    return render(request, 'fileshare/search_results.html', {'folders': folders, 'files': files, 'query': query})
 
+    if not query:
+        messages.warning(request, 'Please enter a file name to search.')
+        return render(request, 'fileshare/search_results.html')
+
+    try:
+        # Search in folders on the dashboard
+        dashboard_folders = Folder.objects.filter(name__icontains=query, created_by=request.user, deleted=False)
+
+        # Search in files on the dashboard
+        dashboard_files = File.objects.filter(name__icontains=query, uploaded_by=request.user, deleted=False, folder__isnull=True)
+
+        # Search in shared files
+        shared_files = SharedFile.objects.filter(file__name__icontains=query, shared_with=request.user, file__deleted=False)
+
+        # Search in files in the trash
+        trash_files = File.objects.filter(name__icontains=query, deleted=True, uploaded_by=request.user, folder__isnull=True)
+
+        # Combine the search results
+        folders = dashboard_folders
+        files = list(chain(dashboard_files, shared_files, trash_files))
+
+    except ObjectDoesNotExist:
+        # Handle the case where an object is not found
+        messages.warning(request, 'Error occurred during search.')
+        return render(request, 'fileshare/search_results.html')
+
+    return render(request, 'fileshare/search_results.html', {'folders': folders, 'files': files, 'query': query})
