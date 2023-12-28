@@ -1,4 +1,5 @@
-MyDrive - A file sharing web app developed using Django
+MyDrive - A file sharing web app developed using Django.
+
 The file-sharing web application project aims to create a platform that allows users to securely upload, organize, and share files with others.
 The scope encompasses user authentication, efficient file management including folder organization, collaboration features, and a secure trash system for deleted files.
 The application's design prioritizes an intuitive user interface to enhance user experience, ensuring accessibility and ease of use.
