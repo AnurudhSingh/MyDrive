@@ -13,15 +13,22 @@ Rigorous testing, comprehensive documentation, and scalability planning are addi
 To test it download the zip file or clone the repo on your local machine.
 
 To install the frameworks, libraries and modules that you need run the command in your terminal.
+
 -> pip install -r requirements.txt
 
 In the root directory where 'manage.py' file is present run the command
+
 -> python manage.py runserver
 
 With this the web app should start at http://127.0.0.1:8000/.
-You can now register and use it on your pc.
+You can now register and use it on your PC.
+
 
 In case it does not work, run the commands
+
 -> python manage.py makemigrations
+
 -> python manage.py migrate
+
 -> python manage.py runserver
+
