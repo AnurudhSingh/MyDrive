@@ -12,7 +12,7 @@ Rigorous testing, comprehensive documentation, and scalability planning are addi
 
 To test it download the zip file or clone the repo on your local machine.
 
-To install the frameworks, libraries and modules that you need run the command in your terminal.
+To install the frameworks, libraries and modules that you need, run the command in your terminal.
 
 -> pip install -r requirements.txt
 
@@ -24,7 +24,7 @@ With this the web app should start at http://127.0.0.1:8000/.
 You can now register and use it on your PC.
 
 
-In case it does not work, run the commands
+In case it does not work, run the commands else go to stackoverflow
 
 -> python manage.py makemigrations
 
