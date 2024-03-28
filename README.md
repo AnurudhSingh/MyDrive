@@ -11,7 +11,9 @@ The project has several key objectives. Firstly, it aims to implement core funct
 
 The project also focuses on robust security measures, including data encryption and secure coding practices. 
 User management functionalities, like registration, login, and profile management, are integrated for a complete user experience. 
-Usability and user experience are emphasized through an intuitive interface. Rigorous testing, comprehensive documentation, and scalability planning are additional objectives to ensure a high-quality, adaptable, and user-friendly file-sharing web application.
+Usability and user experience are emphasized through an intuitive interface. 
+
+Rigorous testing, comprehensive documentation, and scalability planning are additional objectives to ensure a high-quality, adaptable, and user-friendly file-sharing web application.
 
 
 ## Features
