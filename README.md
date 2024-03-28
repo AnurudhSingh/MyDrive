@@ -50,7 +50,6 @@ python manage.py migrate
 python manage.py runserver
 ```
 
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=AnurudhSingh&repo=github-readme-stats)](https://github.com/AnurudhSingh/github-readme-stats)
 ## Tech Stack
 
 **Client:** HTML, CSS, JavaScript, Python
